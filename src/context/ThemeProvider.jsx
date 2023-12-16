@@ -7,7 +7,7 @@ import useLocalStorage from "../hooks/useLocalStorage";
 const ThemeContext = createContext();
 function ThemeProvider({ children }) {
   const [{ themeMode }, setThemeMode] = useLocalStorage("light", "theme");
-  console.log(themeMode);
+  themeMode;
 
   useEffect(() => {
     if (themeMode === "light") {
@@ -19,7 +19,6 @@ function ThemeProvider({ children }) {
     }
   }, [themeMode]);
 
- 
   return (
     <ThemeContext.Provider value={{ themeMode, setThemeMode }}>
       {children}

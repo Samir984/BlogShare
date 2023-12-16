@@ -4,5 +4,5 @@ const config = {
   DataBaseID: String(import.meta.env.VITE_APP_APPWRITE_COLLECTION_ID),
   BUcketID: String(import.meta.env.VITE_APP_APPWRITE_BUCKET_ID),
 };
-console.log(config);
+config;
 export default config;

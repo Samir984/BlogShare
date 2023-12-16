@@ -1,28 +1,26 @@
-import { ThemeProvider, useTheme } from "./context/ThemeProvider";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import PageNotFound from "./pages/PageNotFound";
+import Login from "./pages/Login";
+
+const router = createBrowserRouter([
+  {
+    path: "/signup",
+    element: <Login />,
+  },
+  {
+    path: "/signin",
+    element: <Login />,
+  },
+  {
+    path: "*",
+    element: <PageNotFound />,
+  },
+
+  { path: "", element: "" },
+]);
 
 function App() {
-  return (
-    <ThemeProvider>
-      <div>Yep</div>
-      <Theme />
-    </ThemeProvider>
-  );
-}
-function Theme() {
-  const { setThemeMode, themeMode } = useTheme();
-  return (
-    <button
-      onClick={() =>
-        setThemeMode((prev) =>
-          prev.themeMode === "light"
-            ? { themeMode: "dark" }
-            : { themeMode: "light" }
-        )
-      }
-    >
-      {themeMode}s
-    </button>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;
