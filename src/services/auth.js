@@ -14,18 +14,66 @@ import config from "./config";
 //     console.log(error); // Failure
 // });
 
-class AppwriteClient {
+class AuthService {
+  client = new Client();
+  account;
   constructor() {
-    this.client = new Client()
+    this.client
       .setEndpoint(config.BASE_URL) // Your API Endpoint
       .setProject(config.ProjectID); // Your project ID
 
     this.account = new Account(this.client);
   }
 
-  createUser(userId, email, password) {
-    return this.account.create(userId, email, password);
+  async createAccount(email, password, name) {
+    try {
+      console.log(email, name, password);
+      const userAccount = await this.account.create(
+        ID.unique(),
+        email,
+        password,
+        name
+      );
+      // if (userAccount) {
+      //   console.log(userAccount);
+      //   this.signIn({ email, password });
+      // } else {
+      //   return userAccount;
+      // }
+      return userAccount;
+    } catch (error) {
+      console.log("error occure in ::auth::createAccount ");
+      throw error;
+    }
+  }
+
+  async signIn(email, password) {
+    try {
+      console.log("enter signin");
+      return await this.account.createEmailSession(email, password);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getCurrentUser() {
+    try {
+      return await this.account.get();
+    } catch (error) {
+      console.log("Appwrite serive :: getCurrentUser :: error", error);
+    }
+
+    return null;
+  }
+
+  async logout() {
+    try {
+      await this.account.deleteSessions();
+    } catch (error) {
+      console.log("Appwrite serive :: logout :: error", error);
+    }
   }
 }
 
-export default new AppwriteClient();
+const authService = new AuthService();
+export default authService;

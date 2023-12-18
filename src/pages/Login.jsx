@@ -6,7 +6,7 @@ import SignUpForm from "../features/authentication/SignUpForm";
 
 function Login() {
   const { pathname } = useLocation();
-  console.log(pathname);
+
   return (
     <div className="w-full h-screen flex justify-center items-center">
       <div className="shadow-2xl px-4 py-10 w-[460px] flex flex-col gap-2">
