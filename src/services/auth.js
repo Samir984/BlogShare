@@ -34,13 +34,11 @@ class AuthService {
         password,
         name
       );
-      // if (userAccount) {
-      //   console.log(userAccount);
-      //   this.signIn({ email, password });
-      // } else {
-      //   return userAccount;
-      // }
-      return userAccount;
+      if (userAccount) {
+        return this.signIn(email, password);
+      } else {
+        return userAccount;
+      }
     } catch (error) {
       console.log("error occure in ::auth::createAccount ");
       throw error;
@@ -49,7 +47,6 @@ class AuthService {
 
   async signIn(email, password) {
     try {
-      console.log("enter signin");
       return await this.account.createEmailSession(email, password);
     } catch (error) {
       throw error;
