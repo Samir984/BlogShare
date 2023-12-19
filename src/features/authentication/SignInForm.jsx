@@ -21,8 +21,7 @@ function SignInForm() {
       const session = await authService.signIn(email, password);
       if (session) {
         const userData = await authService.getCurrentUser();
-        if (userData) dispatch(signIn(userData));
-        navigate("/");
+        console.log(complete);
       }
     } catch (error) {
       toast.error(error.message);
@@ -30,6 +29,11 @@ function SignInForm() {
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const signInWithGoogle = function () {
+    const session = authService.signInWithGoogle();
+    console.log(session);
   };
   const onError = function (errors) {
     //error
@@ -71,17 +75,19 @@ function SignInForm() {
         or
         <hr className="border-b border-gray-300  w-full mx-auto" />
       </div>
-      <button className="flex items-center gap-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 text-center w-full">
-        <FaGoogle className="mr-2" />{" "}
+      <button
+        className="flex items-center gap-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 text-center w-full"
+        onClick={signInWithGoogle}
+      >
+        <FaGoogle className="mr-2" />
         <div className="font-medium text-lg">Continue with Google</div>
       </button>
 
-      <div className="mt-4 text-center font-semibold text-gray-700">
-        Not on blogShare yet?{" "}
-        <Link to="/signup" className="hover:underline active:underline">
-          Sign up
-        </Link>
-      </div>
+      <Link to="/signup" className="hover:underline active:underline" onClick>
+        <div className="mt-4 text-center font-semibold text-gray-700">
+          Not on blogShare yet? Sign up
+        </div>
+      </Link>
     </div>
   );
 }

@@ -2,26 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
+@media (max-width:640px) {
+  html{
+    font-size: 88%;
+  }
+}
+
 input {
   border: 1px solid gray;
   outline: none;
 }
 .loader {
-  width: 28px;
-  height: 28px;
-  border: 5px solid #FFF;
+  width: 17px;
+  height: 17px;
+  border: 3px solid #fff;
   border-bottom-color: transparent;
   border-radius: 50%;
   display: inline-block;
   box-sizing: border-box;
   animation: rotation 1s linear infinite;
-  }
+}
 
-  @keyframes rotation {
+@keyframes rotation {
   0% {
-      transform: rotate(0deg);
+    transform: rotate(0deg);
   }
   100% {
-      transform: rotate(360deg);
+    transform: rotate(360deg);
   }
-  } 
+}
+
+

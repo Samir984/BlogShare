@@ -1,5 +1,7 @@
+import Header from "../ui/Header";
+
 function Home() {
-  return <div>home sweet home</div>;
+  return <Header/>;
 }
 
 export default Home;

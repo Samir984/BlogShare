@@ -7,6 +7,7 @@ import { Toaster } from "react-hot-toast";
 import Home from "./pages/Home";
 
 const router = createBrowserRouter([
+  { path: "/", element: <Home /> },
   {
     path: "/signup",
     element: <Login />,
@@ -20,13 +21,12 @@ const router = createBrowserRouter([
     element: <PageNotFound />,
   },
 
-  { path: "/", element: <Home /> },
 ]);
 
 function App() {
   return (
     <Provider store={store}>
-      <RouterProvider router={router} />;
+      <RouterProvider router={router} />
       <Toaster
         position="top-center"
         gutter={12}
