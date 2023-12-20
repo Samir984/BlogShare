@@ -19,9 +19,11 @@ function SignInForm() {
     try {
       setIsSubmitting(true);
       const session = await authService.signIn(email, password);
+      toast.success("Login was successful");
       if (session) {
         const userData = await authService.getCurrentUser();
-        console.log(complete);
+        dispatch(signIn(userData));
+        navigate("/");
       }
     } catch (error) {
       toast.error(error.message);
@@ -32,8 +34,8 @@ function SignInForm() {
   };
 
   const signInWithGoogle = function () {
-    const session = authService.signInWithGoogle();
-    console.log(session);
+    // const session = authService.signInWithGoogle();
+    // console.log(session);
   };
   const onError = function (errors) {
     //error

@@ -5,9 +5,14 @@ import { Provider } from "react-redux";
 import store from "./store/store";
 import { Toaster } from "react-hot-toast";
 import Home from "./pages/Home";
+import CreatePost from "./ui/CreateBlog";
 
 const router = createBrowserRouter([
-  { path: "/", element: <Home /> },
+  {
+    path: "/",
+    element: <Home />,
+    children: [{ path: "create", element: <CreatePost /> }],
+  },
   {
     path: "/signup",
     element: <Login />,
@@ -20,7 +25,6 @@ const router = createBrowserRouter([
     path: "*",
     element: <PageNotFound />,
   },
-
 ]);
 
 function App() {

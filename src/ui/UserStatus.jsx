@@ -3,6 +3,7 @@ import { getUserStatus, signOut } from "../features/authslice";
 import { Link } from "react-router-dom";
 import authService from "../services/auth";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 function UserStatus() {
   const { status } = useSelector(getUserStatus);
@@ -13,8 +14,11 @@ function UserStatus() {
       setIsProcessing(true);
       const session = await authService.signOut();
       dispatch(signOut());
+      toast.success("You are logout sucessfully");
       setIsProcessing(false);
-    } catch (error) {}
+    } catch (error) {
+      toast.error("Logout was not sucessfully");
+    }
   };
 
   return (
