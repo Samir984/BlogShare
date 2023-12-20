@@ -60,11 +60,13 @@ class AuthService {
 
   async signInWithGoogle() {
     try {
-      return await this.account.createOAuth2Session(
-        "google",
-        "http://localhost:5173/",
-        "http://localhost:5173/2/signin"
-      );
+      return await this.account
+        .createOAuth2Session(
+          "google",
+          "http://localhost:5173/",
+          "http://localhost:5173/2/signin"
+        )
+        .then(() => getSession("current"));
     } catch (error) {
       console.log("Appwrite service ::sign with google:: auth");
     }
