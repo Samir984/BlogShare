@@ -5,7 +5,9 @@ function Home() {
   return (
     <>
       <Header />
-      <Outlet />
+      <main className="p-2 m-4 max-w-7xl mx-auto flex justify-center items-center">
+        <Outlet />
+      </main>
     </>
   );
 }

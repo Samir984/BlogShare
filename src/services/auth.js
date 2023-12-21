@@ -74,5 +74,4 @@ class AuthService {
 }
 
 const authService = new AuthService();
-console.log(authService)
 export default authService;

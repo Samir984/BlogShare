@@ -6,10 +6,11 @@ import { Link, useNavigate } from "react-router-dom";
 import authService from "../../services/auth";
 import toast from "react-hot-toast";
 import { signIn } from "../authslice";
+
 function SignInForm() {
   const [isSubmiting, setIsSubmitting] = useState(false);
 
-  const { register, handleSubmit, formState } = useForm();
+  const { register, handleSubmit, formState, reset } = useForm();
   const { errors } = formState;
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -20,6 +21,7 @@ function SignInForm() {
       setIsSubmitting(true);
       const session = await authService.signIn(email, password);
       toast.success("Login was successful");
+      reset();
       if (session) {
         const userData = await authService.getCurrentUser();
         dispatch(signIn(userData));

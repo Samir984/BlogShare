@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 
 function SignUpForm() {
   const [isSubmiting, setIsSubmitting] = useState(false);
-  const { register, handleSubmit, formState } = useForm();
+  const { register, handleSubmit, formState,reset } = useForm();
   const { errors } = formState;
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -23,6 +23,7 @@ function SignUpForm() {
         username
       );
       toast.success("Account Created Successfully");
+      reset();
       if (userData) {
         const currentUserData = await authService.getCurrentUser();
         if (currentUserData) {

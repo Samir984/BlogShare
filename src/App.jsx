@@ -5,13 +5,22 @@ import { Provider } from "react-redux";
 import store from "./store/store";
 import { Toaster } from "react-hot-toast";
 import Home from "./pages/Home";
-import CreatePost from "./ui/CreateBlog";
+import PostBlog from "./features/blog/PostBlog";
+import Explore from "./features/blog/Explore";
+import ReadBlog from "./features/blog/ReadBlog";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
-    children: [{ path: "create", element: <CreatePost /> }],
+    children: [
+      {
+        path: "/",
+        element: <Explore />,
+      },
+      { path: "create", element: <PostBlog /> },
+      { path: "post/:id", element: <ReadBlog /> },
+    ],
   },
   {
     path: "/signup",
