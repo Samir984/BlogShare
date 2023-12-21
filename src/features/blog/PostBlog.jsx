@@ -2,26 +2,29 @@ import { useSelector } from "react-redux";
 import { getUserStatus } from "../authslice";
 import { FaRegImage } from "react-icons/fa6";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import dbService from "../../services/database";
 import toast from "react-hot-toast";
 
-function PostBlog() {
+function PostBlog({ post, type = "create" }) {
   const { status: userStatus, userData } = useSelector(getUserStatus);
   const [isLoading, setIsLoading] = useState(false);
-  const { register, handleSubmit, formState, reset } = useForm();
   const [selectedImage, setSelectedImage] = useState(null);
+
+  const { register, handleSubmit, formState, reset, setValue } = useForm({
+    defaultValues: post || {},
+  });
   const { errors } = formState;
 
   const onSubmit = async function (data) {
     const { featuredImage, title, content } = data;
     try {
       setIsLoading(true);
-      const file = await dbService.uploadFile(featuredImage[0]);
+      const file = type==='edit'? await dbService.updateBlog({}) :await dbService.uploadFile(featuredImage[0]);
       if (file) {
         const fileId = file.$id;
         data.featuredImage = fileId;
-        const dbblog = await dbService.createPost(
+        const dbblog = await dbService.createBlog(
           title,
           content,
           fileId,
@@ -37,7 +40,12 @@ function PostBlog() {
       setIsLoading(false);
     }
   };
-
+  useEffect(() => {
+    if (type === "edit") {
+      const imgUrl = dbService.getFilePreview(post.featuredImage);
+      setSelectedImage(imgUrl);
+    }
+  }, []);
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -79,7 +87,7 @@ function PostBlog() {
             <input
               type="file"
               placeholder=""
-              className="w-64"
+              className="w-64 "
               id="image"
               {...register("featuredImage", {
                 required: "This field in required",

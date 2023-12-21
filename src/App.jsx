@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import PostBlog from "./features/blog/PostBlog";
 import Explore from "./features/blog/Explore";
 import ReadBlog from "./features/blog/ReadBlog";
+import EditBlog, { loader as editBlogLoader } from "./features/blog/EditBlog";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,11 @@ const router = createBrowserRouter([
       },
       { path: "create", element: <PostBlog /> },
       { path: "post/:id", element: <ReadBlog /> },
+      {
+        path: "edit/:id",
+        element: <EditBlog />,
+        loader: editBlogLoader,
+      },
     ],
   },
   {

@@ -14,7 +14,7 @@ class DBService {
     this.bucket = new Storage(this.client);
   }
 
-  async createPost(title, content, featuredImage, userId) {
+  async createBlog(title, content, featuredImage, userId) {
     try {
       return await this.database.createDocument(
         config.DataBaseID,
@@ -32,7 +32,7 @@ class DBService {
     }
   }
 
-  async updatePost(blogId, title, content, featuredImage) {
+  async updateBlog(blogId, title, content, featuredImage) {
     try {
       return await this.database.updateDocument(
         config.DataBaseID,
@@ -45,11 +45,11 @@ class DBService {
         }
       );
     } catch (error) {
-      console.log("Appwrite serive :: updatePost :: error", error);
+      console.log("Appwrite serive :: updateBlog :: error", error);
     }
   }
 
-  async deletePost(blogId) {
+  async deleteBlog(blogId) {
     try {
       await this.database.deleteDocument(
         config.DataBaseID,
@@ -58,12 +58,12 @@ class DBService {
       );
       return true;
     } catch (error) {
-      console.log("Appwrite serive :: deletePost :: error", error);
+      console.log("Appwrite serive :: deleteBlog :: error", error);
       return false;
     }
   }
 
-  async getPost(blogId) {
+  async getBlog(blogId) {
     try {
       return await this.database.getDocument(
         config.DataBaseID,
@@ -71,19 +71,19 @@ class DBService {
         blogId
       );
     } catch (error) {
-      console.log("Appwrite serive :: getPost :: error", error);
+      console.log("Appwrite serive :: getBlog :: error", error);
       return false;
     }
   }
 
-  async getAllPosts() {
+  async getAllBlogs() {
     try {
       return await this.database.listDocuments(
         config.DataBaseID,
         config.CollectionId
       );
     } catch (error) {
-      console.log("Appwrite serive :: getAllPosts :: error", error);
+      console.log("Appwrite serive :: getAllBlogs :: error", error);
     }
   }
   //bucket service
