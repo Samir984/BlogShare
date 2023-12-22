@@ -8,8 +8,9 @@ Web app that allow you to share you blogpost globally where noone will view it.
 
 
 ## Preview
+![Blogshare](https://github.com/Samir984/Blogshare/assets/106372023/b666214c-de94-41a3-9535-5e6640f915f3)
 
-![BlogShare](img)
+
 
 ## Contributing
 
