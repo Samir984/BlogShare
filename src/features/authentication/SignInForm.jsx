@@ -87,11 +87,12 @@ function SignInForm() {
         <div className="font-medium text-lg">Continue with Google</div>
       </button>
 
-      <Link to="/signup" className="hover:underline active:underline" onClick>
-        <div className="mt-4 text-center font-semibold text-gray-700">
-          Not on blogShare yet? Sign up
-        </div>
-      </Link>
+      <div className="mt-4 text-center font-semibold text-gray-700">
+        Not on blogShare yet?&nbsp;
+        <Link to="/signup" className="hover:underline active:underline">
+          Sign up
+        </Link>
+      </div>
     </div>
   );
 }

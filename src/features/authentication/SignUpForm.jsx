@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import authService from "./../../services/auth";
 import { useDispatch } from "react-redux";
 import { signIn } from "../authslice";
@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 
 function SignUpForm() {
   const [isSubmiting, setIsSubmitting] = useState(false);
-  const { register, handleSubmit, formState,reset } = useForm();
+  const { register, handleSubmit, formState, reset } = useForm();
   const { errors } = formState;
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -43,7 +43,7 @@ function SignUpForm() {
   };
 
   return (
-    <div className="flex flex-col gap-2 w-80 self-center">
+    <div className="flex flex-col gap-2 w-80 self-center mt-3">
       <form onSubmit={handleSubmit(onSubmit, onError)} noValidate>
         <input
           type="text"
@@ -89,6 +89,13 @@ function SignUpForm() {
           {isSubmiting ? <span className="loader"></span> : "Create Account"}
         </button>
       </form>
+
+      <h2 className="mt-2 text-center text-lg font-medium">
+        Already have an account?&nbsp;
+        <Link to="/signin" className="hover:underline active:underline">
+          Sign in
+        </Link>
+      </h2>
     </div>
   );
 }

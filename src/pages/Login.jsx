@@ -9,11 +9,11 @@ function Login() {
 
   return (
     <div className="w-full h-screen flex justify-center items-center">
-      <div className="shadow-2xl px-4 py-10 w-[460px] flex flex-col gap-2">
+      <div className="shadow-2xl px-4 py-10 w-[460px] flex flex-col gap-  ">
         <div className="w-full flex justify-center ">
           <Logo />
         </div>
-        <header className="mb-4">
+        <header className="mb-2">
           <h1 className="font-mono font-semibold text-2xl text-center ">
             {pathname === "/signin"
               ? "Welcome to BlogShare"
