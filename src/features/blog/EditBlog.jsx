@@ -5,7 +5,7 @@ import PostBlog from "./PostBlog";
 function EditBlog() {
   const post = useLoaderData();
   console.log(post);
-  return <PostBlog post={post} type='edit' />;
+  return <PostBlog blog={post} type='edit' />;
 }
 
 export default EditBlog;

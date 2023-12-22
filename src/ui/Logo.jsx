@@ -5,7 +5,7 @@ function Logo() {
   return (
     <Link className="flex items-center" to="/">
       <img src={logoFile} alt="logo" className="cursor-pointe w-10" />
-      <span className="text-xl text-red-800">Blogshare</span>
+      <span className="text-xl text-red-600">Blogshare</span>
     </Link>
   );
 }

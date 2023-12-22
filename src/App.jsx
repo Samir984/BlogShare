@@ -9,6 +9,7 @@ import PostBlog from "./features/blog/PostBlog";
 import Explore from "./features/blog/Explore";
 import ReadBlog from "./features/blog/ReadBlog";
 import EditBlog, { loader as editBlogLoader } from "./features/blog/EditBlog";
+import { ThemeProvider } from "./context/ThemeProvider";
 
 const router = createBrowserRouter([
   {
@@ -45,16 +46,18 @@ const router = createBrowserRouter([
 function App() {
   return (
     <Provider store={store}>
-      <RouterProvider router={router} />
-      <Toaster
-        position="top-center"
-        gutter={12}
-        toastOptions={{
-          success: { duration: 3000 },
-          error: { duration: 4000 },
-          className: "max-w-md px-2 py-1 bg-gray-50 text-gray-700",
-        }}
-      />
+      <ThemeProvider>
+        <RouterProvider router={router} />
+        <Toaster
+          position="top-center"
+          gutter={12}
+          toastOptions={{
+            success: { duration: 3000 },
+            error: { duration: 4000 },
+            className: "max-w-md px-2 py-1 bg-gray-50 text-gray-700",
+          }}
+        />
+      </ThemeProvider>
     </Provider>
   );
 }

@@ -7,15 +7,15 @@ import dbService from "../../services/database";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
-function PostBlog({ post, type = "create" }) {
+function PostBlog({ blog, type = "create" }) {
   const { status: userStatus, userData } = useSelector(getUserStatus);
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
 
-  const { register, handleSubmit, formState, reset, setValue, getValues } =
+  const { register, handleSubmit, formState, reset, getValues } =
     useForm({
-      defaultValues: post || {},
+      defaultValues: blog || {},
     });
   const { errors } = formState;
 
@@ -26,12 +26,17 @@ function PostBlog({ post, type = "create" }) {
       if (type === "edit") {
         const file =
           typeof getValues("featuredImage") === "object"
-            ? await dbService.uploadFile(featuredImage[0])
+            ? await dbService.uploadFile(featuredImage[0]).then((res) => {
+                dbService.deleteFile(blog.featuredImage);
+                return res;
+              })
             : getValues("featuredImage");
+
+        dbService.deleteFile(blog.featuredImage);
         console.log("enter", file);
         if (file) {
           const fileId = typeof file === "object" ? file.$id : file;
-          await dbService.updateBlog(post.$id, title, content, fileId);
+          await dbService.updateBlog(blog.$id, title, content, fileId);
           console.log("end", fileId);
         }
       } else {
@@ -54,7 +59,7 @@ function PostBlog({ post, type = "create" }) {
   };
   useEffect(() => {
     if (type === "edit") {
-      const imgUrl = dbService.getFilePreview(post.featuredImage);
+      const imgUrl = dbService.getFilePreview(blog.featuredImage);
       setSelectedImage(imgUrl);
     }
   }, []);
@@ -77,7 +82,7 @@ function PostBlog({ post, type = "create" }) {
 
   return (
     <div className="w-full">
-      {1 === 1 ? (
+      {userStatus? (
         <form
           onSubmit={handleSubmit(onSubmit, onError)}
           className="flex flex-col  flex-grow gap-3"
