@@ -9,7 +9,7 @@ function PageNotFound() {
         </div>
         <h1 className="text-7xl">404</h1>
         <h1 className="text-gray-500 text-3xl mb-4">Page Not Found</h1>
-        <p className="text-gray-800 text-2xl">
+        <p className="texxt-gray-800 text-2xl">
           Oops! The page you are looking for could not be found.
         </p>
       </div>
