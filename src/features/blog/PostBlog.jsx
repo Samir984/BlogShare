@@ -5,9 +5,11 @@ import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import dbService from "../../services/database";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 function PostBlog({ post, type = "create" }) {
   const { status: userStatus, userData } = useSelector(getUserStatus);
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
 
@@ -40,13 +42,14 @@ function PostBlog({ post, type = "create" }) {
           await dbService.createBlog(title, content, fileId, userData.$id);
         }
       }
+      toast.success("Blog is published sucessfully");
+      reset();
     } catch (error) {
       toast.error("Error occur while Publishing blog");
     } finally {
-      toast.success("Blog is published sucessfully");
-      reset();
       setSelectedImage(null);
       setIsLoading(false);
+      navigate("/");
     }
   };
   useEffect(() => {
@@ -54,7 +57,7 @@ function PostBlog({ post, type = "create" }) {
       const imgUrl = dbService.getFilePreview(post.featuredImage);
       setSelectedImage(imgUrl);
     }
-  }, [setValue]);
+  }, []);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
