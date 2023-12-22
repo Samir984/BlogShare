@@ -2,6 +2,11 @@
 
 Web app that allow you to share you blogpost globally where noone will view it.
 
+## feature
+- create,delete,edit you post
+- view community post
+
+
 ## Preview
 
 ![BlogShare](img)
@@ -16,4 +21,4 @@ Anyone who is willing to contribute is more than welcome to do so. If you have a
 - handeling appwrite backend api
 - playing with react hook form
 
-[Live Demo]()
+[Live Demo](https://blogshare984.netlify.app/)

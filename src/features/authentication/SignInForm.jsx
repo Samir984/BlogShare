@@ -35,10 +35,6 @@ function SignInForm() {
     }
   };
 
-  const signInWithGoogle = function () {
-    // const session = authService.signInWithGoogle();
-    // console.log(session);
-  };
   const onError = function (errors) {
     //error
   };
@@ -62,7 +58,7 @@ function SignInForm() {
 
         <input
           type="password"
-          className="w-full p-1 mt-3"
+          className="w-full p-1 mt-6"
           placeholder="Password"
           {...register("password", {
             required: "Password is required",
@@ -70,24 +66,11 @@ function SignInForm() {
         />
         <p className="text-red-600">{errors.password?.message}</p>
 
-        <button className="p-2 bg-blue-700 text-white font-semibold hover:bg-blue-800 mt-4 rounded w-full">
+        <button className="p-2 bg-blue-700 text-white font-semibold hover:bg-blue-800 mt-7 rounded w-full">
           {isSubmiting ? <span className="loader"></span> : "Log in"}
         </button>
       </form>
-      <div className="flex justify-center items-center gap-2 my-2">
-        <hr className="border-b border-gray-300  w-full mx-auto " />
-        or
-        <hr className="border-b border-gray-300  w-full mx-auto" />
-      </div>
-      <button
-        className="flex items-center gap-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 text-center w-full"
-        onClick={signInWithGoogle}
-      >
-        <FaGoogle className="mr-2" />
-        <div className="font-medium text-lg">Continue with Google</div>
-      </button>
-
-      <div className="mt-4 text-center font-semibold text-gray-700">
+      <div className="mt-4 text-center font-semibold text-gray-900">
         Not on blogShare yet?&nbsp;
         <Link to="/signup" className="hover:underline active:underline">
           Sign up
