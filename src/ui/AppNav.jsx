@@ -7,7 +7,6 @@ function AppNav({ post }) {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const navigation = useNavigation();
-  console.log(navigation.state);
   const handeleDeleteBlog = function () {
     setIsLoading(true);
     Promise.all([

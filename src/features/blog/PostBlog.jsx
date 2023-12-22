@@ -11,25 +11,34 @@ function PostBlog({ post, type = "create" }) {
   const [isLoading, setIsLoading] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
 
-  const { register, handleSubmit, formState, reset, setValue } = useForm({
-    defaultValues: post || {},
-  });
+  const { register, handleSubmit, formState, reset, setValue, getValues } =
+    useForm({
+      defaultValues: post || {},
+    });
   const { errors } = formState;
 
   const onSubmit = async function (data) {
     const { featuredImage, title, content } = data;
     try {
       setIsLoading(true);
-      const file = type==='edit'? await dbService.updateBlog({}) :await dbService.uploadFile(featuredImage[0]);
-      if (file) {
-        const fileId = file.$id;
-        data.featuredImage = fileId;
-        const dbblog = await dbService.createBlog(
-          title,
-          content,
-          fileId,
-          userData.$id
-        );
+      if (type === "edit") {
+        const file =
+          typeof getValues("featuredImage") === "object"
+            ? await dbService.uploadFile(featuredImage[0])
+            : getValues("featuredImage");
+        console.log("enter", file);
+        if (file) {
+          const fileId = typeof file === "object" ? file.$id : file;
+          await dbService.updateBlog(post.$id, title, content, fileId);
+          console.log("end", fileId);
+        }
+      } else {
+        const file = await dbService.uploadFile(featuredImage[0]);
+        if (file) {
+          const fileId = file.$id;
+          data.featuredImage = fileId;
+          await dbService.createBlog(title, content, fileId, userData.$id);
+        }
       }
     } catch (error) {
       toast.error("Error occur while Publishing blog");
@@ -45,7 +54,8 @@ function PostBlog({ post, type = "create" }) {
       const imgUrl = dbService.getFilePreview(post.featuredImage);
       setSelectedImage(imgUrl);
     }
-  }, []);
+  }, [setValue]);
+
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -89,9 +99,7 @@ function PostBlog({ post, type = "create" }) {
               placeholder=""
               className="w-64 "
               id="image"
-              {...register("featuredImage", {
-                required: "This field in required",
-              })}
+              {...register("featuredImage", {})}
               onChange={handleImageChange}
             />
             <p className="text-red-600">{errors.featuredImage?.message}</p>
@@ -120,7 +128,10 @@ function PostBlog({ post, type = "create" }) {
             <p className="text-red-600">{errors.content?.message}</p>
           </div>
 
-          <button className="px-4 bg-red-600 text-cyan-50 text-xl py-2 w-fit ">
+          <button
+            className="px-4 bg-red-600 text-cyan-50 text-xl py-2 w-fit "
+            disabled={isLoading}
+          >
             {isLoading ? "Publishing..." : "Publish"}
           </button>
         </form>
