@@ -7,12 +7,14 @@ import AppNav from "../../ui/AppNav";
 
 function ReadBlog() {
   const { id } = useParams();
+  const [isLoading, setIsLoading] = useState(true);
   const { userData } = useSelector(getUserStatus);
   const [post, setPost] = useState(null);
   useEffect(() => {
     dbService.getBlog(id).then((post) => {
       if (post) {
         setPost(post);
+        setIsLoading(false);
         console.log(post, userData);
       }
     });
@@ -20,6 +22,7 @@ function ReadBlog() {
 
   return (
     <div className="w-full ">
+      {isLoading && <div>loading...</div>}
       {post && (
         <div className="">
           {userData?.$id === post.userId ? <AppNav post={post} /> : ""}
