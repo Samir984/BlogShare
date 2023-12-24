@@ -4,21 +4,24 @@ import dbService from "../../services/database";
 import { useSelector } from "react-redux";
 import { getUserStatus } from "../authslice";
 import AppNav from "../../ui/AppNav";
+import { useQuery } from "@tanstack/react-query";
 
 function ReadBlog() {
   const { id } = useParams();
-  const [isLoading, setIsLoading] = useState(true);
-  const { userData } = useSelector(getUserStatus);
-  const [post, setPost] = useState(null);
-  useEffect(() => {
-    dbService.getBlog(id).then((post) => {
-      if (post) {
-        setPost(post);
-        setIsLoading(false);
-        console.log(post, userData);
-      }
-    });
-  }, []);
+  // const [isLoading, setIsLoading] = useState(true);
+  // const { userData } = useSelector(getUserStatus);
+  // const [post, setPost] = useState(null);
+  // useEffect(() => {
+  //   dbService.getBlog(id).then((post) => {
+  //     if (post) {
+  //       setPost(post);
+  //       setIsLoading(false);
+  //       console.log(post, userData);
+  //     }
+  //   });
+  // }, []);
+
+  const useQuery()
 
   return (
     <div className="w-full ">
