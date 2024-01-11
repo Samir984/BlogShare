@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 import { useParams } from "react-router-dom";
 import dbService from "../../services/database";
 import { useSelector } from "react-redux";
@@ -16,7 +17,7 @@ function ReadBlog() {
 
   return (
     <div className="w-full ">
-      {isFetching && <div>loading...</div>}
+      {isFetching && <Skeleton className="min-h-[800px]" />}
       {post && (
         <div className="">
           {userData?.$id === post.userId ? <AppNav post={post} /> : ""}
