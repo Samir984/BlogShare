@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { getUserStatus } from "../authslice";
 import AppNav from "../../ui/AppNav";
 import { useQuery } from "@tanstack/react-query";
+import NaviagateBack from "../../ui/NaviagateBack";
 
 function ReadBlog() {
   const { id } = useParams();
@@ -16,7 +17,8 @@ function ReadBlog() {
   });
 
   return (
-    <div className="w-full ">
+    <div className="w-full">
+      <NaviagateBack />
       {isFetching && <Skeleton className="min-h-[800px]" />}
       {post && (
         <div className="">

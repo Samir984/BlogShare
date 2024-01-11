@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import dbService from "../../services/database";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import NaviagateBack from "../../ui/NaviagateBack";
 
 function PostBlog({ blog, type = "create" }) {
   const { status: userStatus, userData } = useSelector(getUserStatus);
@@ -13,10 +14,9 @@ function PostBlog({ blog, type = "create" }) {
   const [isLoading, setIsLoading] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
 
-  const { register, handleSubmit, formState, reset, getValues } =
-    useForm({
-      defaultValues: blog || {},
-    });
+  const { register, handleSubmit, formState, reset, getValues } = useForm({
+    defaultValues: blog || {},
+  });
   const { errors } = formState;
 
   const onSubmit = async function (data) {
@@ -82,7 +82,8 @@ function PostBlog({ blog, type = "create" }) {
 
   return (
     <div className="w-full">
-      {userStatus? (
+      <NaviagateBack />
+      {userStatus ? (
         <form
           onSubmit={handleSubmit(onSubmit, onError)}
           className="flex flex-col  flex-grow gap-3"
