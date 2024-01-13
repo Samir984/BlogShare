@@ -13,7 +13,7 @@ function PostBlog({ blog, type = "create" }) {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
-
+  console.log("userdata", userData, userData?.$id);
   const { register, handleSubmit, formState, reset, getValues } = useForm({
     defaultValues: blog || {},
   });
@@ -24,6 +24,7 @@ function PostBlog({ blog, type = "create" }) {
     try {
       setIsLoading(true);
       if (type === "edit") {
+        console.log("edit");
         const file =
           typeof getValues("featuredImage") === "object"
             ? await dbService.uploadFile(featuredImage[0]).then((res) => {
@@ -37,17 +38,24 @@ function PostBlog({ blog, type = "create" }) {
         if (file) {
           const fileId = typeof file === "object" ? file.$id : file;
           await dbService.updateBlog(blog.$id, title, content, fileId);
-          console.log("end", fileId);
         }
       } else {
+        console.log("1", "userdata", userData);
         const file = await dbService.uploadFile(featuredImage[0]);
         if (file) {
           const fileId = file.$id;
           data.featuredImage = fileId;
-          await dbService.createBlog(title, content, fileId, userData.$id);
+          console.log(userData.$id);
+          const process = await dbService.createBlog(
+            title,
+            content,
+            fileId,
+            userData.$id
+          );
+          if (process === undefined) throw new Error("error");
         }
+        toast.success("Blog is published sucessfully");
       }
-      toast.success("Blog is published sucessfully");
       reset();
     } catch (error) {
       toast.error("Error occur while Publishing blog");

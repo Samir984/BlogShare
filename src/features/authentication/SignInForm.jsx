@@ -31,7 +31,6 @@ function SignInForm() {
       }
     } catch (error) {
       toast.error(error.message);
-      console.log(error);
     } finally {
       setIsSubmitting(false);
     }

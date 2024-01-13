@@ -1,6 +1,7 @@
 import dbService from "../../services/database";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { PiSmileySadLight } from "react-icons/pi";
 import BlogCard from "../../ui/BlogCard";
 import { useQuery } from "@tanstack/react-query";
 
@@ -26,6 +27,12 @@ function Explore() {
             {posts.documents.map((post) => (
               <BlogCard {...post} key={post.$id} />
             ))}
+            {posts.documents.length === 0 && (
+              <div className="flex gap-4 text-2xl items-center w-full justify-center">
+                <PiSmileySadLight size={40} className="inline" />
+                <span>No post found</span>
+              </div>
+            )}
           </>
         )}
       </div>

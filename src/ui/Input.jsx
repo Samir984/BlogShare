@@ -2,7 +2,7 @@ import React from "react";
 
 const Input = React.forwardRef(
   ({ label, type = "text", className = "", error, ...props }, ref) => {
-    console.log(props, type,error);
+  
     return (
       <div className="">
         {label && <label className="inline-block">{label}</label>}

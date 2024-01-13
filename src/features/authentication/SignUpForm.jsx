@@ -27,19 +27,18 @@ function SignUpForm() {
       if (userData) {
         const currentUserData = await authService.getCurrentUser();
         if (currentUserData) {
-          dispatch(signIn({ payload: currentUserData }));
+          dispatch(signIn(currentUserData));
         }
         navigate("/");
       }
     } catch (error) {
-      console.log(error);
-      toast.error();
+      toast.error(error.message);
     } finally {
       setIsSubmitting(false);
     }
   };
   const onError = function (errors) {
-    console.log(errors);
+    // console.log(errors);
   };
 
   return (
