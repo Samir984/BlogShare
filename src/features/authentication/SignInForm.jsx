@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { forwardRef, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaGoogle } from "react-icons/fa";
 import { useDispatch } from "react-redux";
@@ -6,9 +6,11 @@ import { Link, useNavigate } from "react-router-dom";
 import authService from "../../services/auth";
 import toast from "react-hot-toast";
 import { signIn } from "../authslice";
+import Input from "../../ui/Input";
 
 function SignInForm() {
   const [isSubmiting, setIsSubmitting] = useState(false);
+  const inputRef = useRef(null);
 
   const { register, handleSubmit, formState, reset } = useForm();
   const { errors } = formState;
@@ -42,10 +44,11 @@ function SignInForm() {
   return (
     <div className="flex flex-col gap-2 w-80 self-center">
       <form onSubmit={handleSubmit(onSubmit, onError)} noValidate>
-        <input
+        <Input
           type="text"
           className="w-full p-1 mt-3"
           placeholder="Email"
+          error={errors.email?.message}
           {...register("email", {
             required: "Email is required",
             pattern: {
@@ -54,17 +57,21 @@ function SignInForm() {
             },
           })}
         />
-        <p className="text-red-600">{errors.email?.message}</p>
 
-        <input
+        <Input
           type="password"
           className="w-full p-1 mt-6"
           placeholder="Password"
+          error={errors.password?.message}
           {...register("password", {
             required: "Password is required",
+            validate: (fieldValue) => {
+              return fieldValue.length < 8
+                ? "Password must be at least 8 character long"
+                : true;
+            },
           })}
         />
-        <p className="text-red-600">{errors.password?.message}</p>
 
         <button className="p-2 bg-blue-700 text-white font-semibold hover:bg-blue-800 mt-7 rounded w-full">
           {isSubmiting ? <span className="loader"></span> : "Log in"}

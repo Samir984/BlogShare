@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { signIn } from "../authslice";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
-
+import Input from "../../ui/Input";
 function SignUpForm() {
   const [isSubmiting, setIsSubmitting] = useState(false);
   const { register, handleSubmit, formState, reset } = useForm();
@@ -45,16 +45,17 @@ function SignUpForm() {
   return (
     <div className="flex flex-col gap-2 w-80 self-center mt-3">
       <form onSubmit={handleSubmit(onSubmit, onError)} noValidate>
-        <input
+        <Input
           type="text"
+          error={errors.username?.message}
           className="w-full p-1"
           placeholder="Username"
           {...register("username", { required: "Username is required" })}
         />
-        <p className="text-red-600">{errors.username?.message}</p>
 
-        <input
+        <Input
           type="text"
+          error={errors.email?.message}
           className="w-full p-1 mt-3"
           placeholder="Email"
           {...register("email", {
@@ -65,11 +66,11 @@ function SignUpForm() {
             },
           })}
         />
-        <p className="text-red-600">{errors.email?.message}</p>
 
-        <input
+        <Input
           type="password"
           className="w-full p-1 mt-3"
+          error={errors.password?.message}
           placeholder="Password"
           {...register("password", {
             required: "Password is required",
@@ -80,7 +81,6 @@ function SignUpForm() {
             },
           })}
         />
-        <p className="text-red-600">{errors.password?.message}</p>
 
         <button
           type="submit"
