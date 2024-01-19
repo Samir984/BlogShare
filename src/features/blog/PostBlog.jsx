@@ -34,18 +34,16 @@ function PostBlog({ blog, type = "create" }) {
             : getValues("featuredImage");
 
         dbService.deleteFile(blog.featuredImage);
-        console.log("enter", file);
+
         if (file) {
           const fileId = typeof file === "object" ? file.$id : file;
           await dbService.updateBlog(blog.$id, title, content, fileId);
         }
       } else {
-        console.log("1", "userdata", userData);
         const file = await dbService.uploadFile(featuredImage[0]);
         if (file) {
           const fileId = file.$id;
           data.featuredImage = fileId;
-          console.log(userData.$id);
           const process = await dbService.createBlog(
             title,
             content,
@@ -114,7 +112,7 @@ function PostBlog({ blog, type = "create" }) {
             <input
               type="file"
               placeholder=""
-              className="w-64 "
+              className="w-64"
               id="image"
               {...register("featuredImage", {})}
               onChange={handleImageChange}

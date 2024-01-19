@@ -17,10 +17,10 @@ function Explore() {
       <div className="grid grid-cols-1 gap-3 md:grid-cols-2  mt-4 justify-items-center">
         {isFetching ? (
           <>
-            <Skeleton className="min-w-[460px] rounded-xl p-4 min-h-[340px] bg-slate-100" />
-            <Skeleton className="min-w-[480px] rounded-xl p-4 min-h-[340px] bg-slate-100" />
-            <Skeleton className="min-w-[480px] rounded-xl p-4 min-h-[340px] bg-slate-100" />
-            <Skeleton className="min-w-[480px] rounded-xl p-4 min-h-[340px] bg-slate-100" />
+            <Skeleton className="min-w-[360px] rounded-xl p-4 min-h-[340px] bg-slate-100" />
+            <Skeleton className="min-w-[380px] rounded-xl p-4 min-h-[340px] bg-slate-100" />
+            <Skeleton className="min-w-[360px] rounded-xl p-4 min-h-[340px] bg-slate-100" />
+            <Skeleton className="min-w-[360px] rounded-xl p-4 min-h-[340px] bg-slate-100" />
           </>
         ) : (
           <>
