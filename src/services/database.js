@@ -84,6 +84,7 @@ class DBService {
       );
     } catch (error) {
       console.log("Appwrite serive :: getAllBlogs :: error", error);
+      throw error;
     }
   }
   //bucket service
