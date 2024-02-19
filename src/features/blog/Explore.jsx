@@ -13,6 +13,7 @@ function Explore() {
     isError,
     error,
   } = useQuery({
+    retry: 1,
     queryKey: ["blogs"],
     queryFn: () => dbService.getAllBlogs([]),
     onError: (err) => {
